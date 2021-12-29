@@ -13,9 +13,8 @@ const StyledFooter = styled.footer`
   background-color: #ddd;
   padding: 2rem;
   color: #999;
-  position: absolute;
+  margin-top: auto;
   width: 100%;
-  bottom: 0;
 `;
 
 export default Footer;
