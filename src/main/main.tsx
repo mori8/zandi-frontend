@@ -18,9 +18,9 @@ const Main = (props: any) => {
     {
       id: 0,
       title: '자라나라 잔디잔디',
-      description: '잔디잔디를 자라자라로 만들어보자',
-      starts: '2021-01-01',
-      ends: '2021-01-14',
+      description: '잔디잔디를 자라자라로 만들어보자! 잔디를 풍성하게 키우면 기분이 좋아져요',
+      starts: '2022-01-01',
+      ends: '2022-01-14',
       participants: 13,
       status: 1
     }, {
@@ -46,23 +46,27 @@ const Main = (props: any) => {
     <Wrapper>
       <SmallWrapper>
         <StyledPhrase>현재 가꾸고 있는 잔디</StyledPhrase>
-        {
-          events.filter(event => event.status === 1).map((event: EventCardType) => {
-            return (
-              <EventCard key={event.id} {...event} />
-            )
-          })
-        }
+        <EventCardWrapper>
+          {
+            events.filter(event => event.status === 1).map((event: EventCardType) => {
+              return (
+                <EventCard key={event.id} {...event} />
+              )
+            })
+          }
+        </EventCardWrapper>
       </SmallWrapper>
       <SmallWrapper>
         <StyledPhrase>완성된 잔디</StyledPhrase>
-        {
-          events.filter(event => event.status === 0).map((event: EventCardType) => {
-            return (
-              <EventCard key={event.id} {...event} />
-            )
-          })
-        }
+        <EventCardWrapper>
+          {
+            events.filter(event => event.status === 0).map((event: EventCardType) => {
+              return (
+                <EventCard key={event.id} {...event} />
+              )
+            })
+          }
+        </EventCardWrapper>
       </SmallWrapper>
     </Wrapper>
   );
@@ -74,14 +78,19 @@ const Wrapper = styled.main`
 `;
 
 const SmallWrapper = styled.div`
-  display: grid;
   margin: 2.4rem 0;
+`;
+
+const EventCardWrapper = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
 `;
 
 const StyledPhrase = styled.p`
   font-size: 1.5rem;
   font-weight: bold;
   font-family: 'Pretendard';
+  margin: 3.2rem 0 2rem;
 `;
 
 export default Main;
