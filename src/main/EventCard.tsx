@@ -77,6 +77,9 @@ const StyledEventCard = styled.div`
       transition: all 0.3s ease-out;
       color: #ffffff;
     }
+    div {
+      color: rgba(255, 255, 255, 0.8);
+    }
   }
 `;
 
