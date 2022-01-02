@@ -6,10 +6,13 @@ import styled from 'styled-components'
 const Header = () => {
   return (
     <StyledHeader>
-      <img src="gdsc_sookmyung_logo.png" alt="" width="220px"/> <br/>
-      정원사 눈송이와 함께 <br/>
-      1일 1커밋 도전하기 <br/>
-      <StyledButton>이벤트 등록하기 &#10141;</StyledButton>
+      <StyledNav>로그인</StyledNav>
+      <SmallWrapper>
+        <img src="gdsc_sookmyung_logo.png" alt="" width="220px"/> <br/>
+        정원사 눈송이와 함께 <br/>
+        1일 1커밋 도전하기 <br/>
+        <StyledButton>이벤트 등록하기 &#10141;</StyledButton>
+      </SmallWrapper>
     </StyledHeader>
   );
 }
@@ -17,12 +20,25 @@ const Header = () => {
 const StyledHeader = styled.header`
   width: 100%;
   box-sizing: border-box;
-  padding: 4rem;
   font-family: 'Pretendard';
-  font-size: 2.6rem;
-  font-weight: 700;
   background-color: #ddd;
   color: black;
+`;
+
+const SmallWrapper = styled.div`
+  padding: 2.4rem 4rem 4rem;
+  box-sizing: border-box;
+  font-size: 2.6rem;
+  font-weight: 700;
+`;
+
+const StyledNav = styled.div`
+  width: 100%;
+  box-sizing: border-box;
+  height: max-content;
+  text-align: right;
+  padding: 1.2rem 1.6rem;
+  font-size: 0.9rem;
 `;
 
 const StyledButton = styled.button`
