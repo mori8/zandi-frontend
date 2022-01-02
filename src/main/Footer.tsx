@@ -12,6 +12,7 @@ function Footer(props:any) {
 const StyledFooter = styled.footer`
   background-color: #ddd;
   padding: 2rem;
+  box-sizing: border-box;
   color: #999;
   margin-top: auto;
   width: 100%;

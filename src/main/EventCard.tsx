@@ -6,7 +6,7 @@ import { EventCardType } from './main';
 
 const EventCard = (props: EventCardType) => {
   return (
-    <StyledEventCard>
+    <StyledEventCard color={props.color}>
       <StyledEventTitle>{props.title}</StyledEventTitle>
       <StyledDiscription>{props.description}</StyledDiscription>
       <BottomWrapper>
@@ -15,7 +15,7 @@ const EventCard = (props: EventCardType) => {
           <i className="material-icons md-18">groups</i> <span>ㅤ{props.participants}</span>
         </PhraseWrapper>
       </BottomWrapper>
-      <CornerButton>
+      <CornerButton color={props.color}>
         <StyledArrow className="go-arrow">
           →
         </StyledArrow>
@@ -31,7 +31,8 @@ EventCard.propTypes = {
   starts: PropTypes.string,
   ends: PropTypes.string,
   participants: PropTypes.number,
-  status: PropTypes.number
+  status: PropTypes.number,
+  color: PropTypes.string,
 }
 
 
@@ -54,7 +55,7 @@ const StyledEventCard = styled.div`
     z-index: -1;
     top: -16px;
     right: -16px;
-    background: #4285f4;
+    background: ${props => props.color};
     height: 32px;
     width: 32px;
     border-radius: 32px;
@@ -90,10 +91,14 @@ const StyledDiscription = styled.p`
   line-height: 24px;
   height: 48px;
   margin-bottom: 4px;
+  font-size: 0.9rem;
 `;
 
 const StyledEventTitle = styled.h3`
-  font-size: 1.3rem;
+  font-size: 1.2rem;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
   margin: 1rem 0;
 `;
 
@@ -118,7 +123,7 @@ const CornerButton = styled.div`
   overflow: hidden;
   top: 0;
   right: 0;
-  background-color: #4285f4;
+  background-color: ${props => props.color};
   border-radius: 0 4px 0 32px;
 `;
 
