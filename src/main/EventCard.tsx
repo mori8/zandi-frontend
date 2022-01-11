@@ -3,19 +3,20 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { EventCardType } from './main';
 
+let COLORS = ['#4285f4', '#ea4335', '#fbbc05', '#34a853']
 
 const EventCard = (props: EventCardType) => {
   return (
-    <StyledEventCard color={props.color}>
-      <StyledEventTitle>{props.title}</StyledEventTitle>
-      <StyledDiscription>{props.description}</StyledDiscription>
+    <StyledEventCard color={COLORS[props.id % 4]} key={props.id + "-ec"}>
+      <StyledEventTitle>{props.name}</StyledEventTitle>
+      <StyledDiscription>{props.content}</StyledDiscription>
       <BottomWrapper>
-        <StyledDates>{props.starts} ~ {props.ends}</StyledDates>
+        <StyledDates>{props.started_at} ~ {props.ended_at}</StyledDates>
         <PhraseWrapper>
-          <i className="material-icons md-18">groups</i> <span>ㅤ{props.participants}</span>
+          <i className="material-icons md-18">groups</i> <span>ㅤ{props.user_size}</span>
         </PhraseWrapper>
       </BottomWrapper>
-      <CornerButton color={props.color}>
+      <CornerButton color={COLORS[props.id % 4]}>
         <StyledArrow className="go-arrow">
           →
         </StyledArrow>
