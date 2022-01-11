@@ -1,9 +1,20 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components'
+import CreateEventsModal from '../createEvents/CreateEventsModal';
 
 
 // TODO: 회원가입 구현 이후 로그인 정보 표시
 const Header = () => {
+  const [isModalOpened, setIsModalOpened] = useState<boolean>(false);
+
+  const openCreateModal = () => {
+    setIsModalOpened(true);
+  }
+
+  const closeCreateModal = () => {
+    setIsModalOpened(false);
+  }
+
   return (
     <StyledHeader>
       <StyledNav>로그인</StyledNav>
@@ -11,8 +22,9 @@ const Header = () => {
         <img src="gdsc_sookmyung_logo.png" alt="" width="220px"/> <br/>
         정원사 눈송이와 함께 <br/>
         1일 1커밋 도전하기 <br/>
-        <StyledButton>이벤트 등록하기 &#10141;</StyledButton>
+        <StyledButton onClick={openCreateModal}>이벤트 등록하기 &#10141;</StyledButton>
       </SmallWrapper>
+      {isModalOpened && <CreateEventsModal close={closeCreateModal}/>}
     </StyledHeader>
   );
 }
