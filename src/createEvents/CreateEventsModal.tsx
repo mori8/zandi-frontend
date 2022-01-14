@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
+import DatePicker from 'react-datepicker';
 import MemberProfile from './MemberProfile';
+
+import 'react-datepicker/dist/react-datepicker.css'
 
 
 type PropsType = {
@@ -11,14 +14,16 @@ type PropsType = {
 type ValueType = {
   name: string,
   content: string,
-  started_at: string,
-  ended_at: string,
-  users: Array<{ name: string; username: string; }>
 }
 
 const CreateEventsModal = (props: PropsType) => {
-  const [values, setValues] = useState<ValueType[]>([]);
-  const [users, setUsers] = useState<Array<{ name: string; username: string; }>>([]);
+  const [eventInfo, setEventInfo] = useState<ValueType>({
+    name: '',
+    content: '',
+  });
+  const [startDate, setStartDate] = useState<any>(new Date());
+  const [endDate, setEndDate] = useState<any>(new Date());
+  const [users, setUsers] = useState<Array<{ name: string; github: string; }>>([]);
 
   const addMember = async () => {
     const memberName = document.getElementById('member_name') as HTMLInputElement;
@@ -38,7 +43,7 @@ const CreateEventsModal = (props: PropsType) => {
       /* 유효한 계정이라면 user 리스트에 추가 */
       const user = {
         name: memberName.value,
-        username: memberUsername.value
+        github: memberUsername.value
       }
       setUsers([...users, user]);
     }
@@ -47,14 +52,44 @@ const CreateEventsModal = (props: PropsType) => {
     memberUsername.value = '';
   }
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) => {
     const { name, value } = event.target;
-    setValues(values => values.map(value => (value.name === name ? { ...value, [name]: value } : value)))
+    setEventInfo({ ...eventInfo, [name]: value });
   }
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log(values);
+    const { name, content } = eventInfo;
+    const started_at = startDate.toISOString().split('T')[0];
+    const ended_at = endDate.toISOString().split('T')[0];
+    const stringifiedUsers = JSON.stringify(users);
+    // console.log(name, content, started_at, ended_at, stringifiedUsers);
+
+    const url = 'http://34.64.124.151:8080/events';
+    const axiosConfig = {
+      headers: {
+        "Content-Type": "application/json",
+      }
+    }
+
+    const sendParam = {
+      "name": name,
+      "content": content,
+      "started_at": started_at,
+      "ended_at": ended_at,
+      "users": users
+    }
+    // formData.append('name', name);
+    // formData.append('content', content);
+    // formData.append('started_at', started_at);
+    // formData.append('ended_at', ended_at);
+    // formData.append('users', stringifiedUsers);
+
+    axios.post(url, sendParam, axiosConfig).then(res => {
+      console.log(res.data);
+      alert('성공적으로 생성되었습니다.');
+      window.location.href = '/';
+    })
   }
 
   return (
@@ -65,38 +100,38 @@ const CreateEventsModal = (props: PropsType) => {
         <form onSubmit={handleSubmit}>
           <InputWrapper>
             <StyledLabel>이번 잔디 프로젝트의 이름은 무엇인가요?</StyledLabel>
-            <StyledInput name="name" id="name"></StyledInput><FocusBorder/>
+            <StyledInput name="name" id="name" value={eventInfo.name} onChange={handleChange}></StyledInput><FocusBorder/>
           </InputWrapper>
           <InputWrapper>
             <StyledLabel>프로젝트에 대한 설명을 적어주세요.</StyledLabel>
-            <StyledTextArea name="content" id="content"></StyledTextArea><FocusBorder/>
+            <StyledTextArea name="content" id="content" value={eventInfo.content} onChange={handleChange}></StyledTextArea><FocusBorder/>
           </InputWrapper>
           <InputWrapper>
             <StyledLabel>프로젝트 시작 날짜를 설정해 주세요.</StyledLabel>
-            <StyledInput type="date" name="start_at" id="start_at"></StyledInput><FocusBorder/>
+            <StyledDatePicker selected={startDate} onChange={(date) => setStartDate(date)} selectsStart startDate={startDate} endDate={endDate} /><FocusBorder/>
           </InputWrapper>
           <InputWrapper>
             <StyledLabel>프로젝트 종료 날짜를 설정해 주세요.</StyledLabel>
-            <StyledInput type="date" name="end_at" id="end_at"></StyledInput><FocusBorder/>
+            <StyledDatePicker selected={endDate} onChange={(date) => setEndDate(date)} selectsEnd startDate={startDate} endDate={endDate} minDate={startDate} /><FocusBorder/>
           </InputWrapper>
           <InputWrapper>
             <StyledLabel>이 프로젝트에 함께 할 멤버를 추가해 주세요.</StyledLabel>
             <AddUserInputWrapper>
               <StyledInput type="text" name="member_name" id ="member_name" onChange={handleChange} placeholder='이름'></StyledInput>
               <StyledInput type="text" name="member_username" id="member_username" onChange={handleChange} placeholder='GitHub Username'></StyledInput>
-              <AddUserButton onClick={addMember}>추가</AddUserButton>
+              <AddUserButton onClick={addMember} type="button">추가</AddUserButton>
             </AddUserInputWrapper>
             <MemberProfileWrapper>
               {
                 users.map((user, index) => {
                   return (
-                    <MemberProfile key={index} name={user.name} username={user.username} />
+                    <MemberProfile key={index} name={user.name} github={user.github} />
                   )}
                 )
               }
             </MemberProfileWrapper>
           </InputWrapper>
-          <SubmitButton>프로젝트 생성</SubmitButton>
+          <SubmitButton type='submit'>프로젝트 생성</SubmitButton>
         </form>
       </FormContainer>
       
@@ -217,6 +252,21 @@ const CloseButton = styled.button`
   border: none;
   font-size: 1.6rem;
   cursor: pointer;
+`;
+
+const StyledDatePicker = styled(DatePicker)`
+  font: 15px/24px 'Muli', sans-serif; color: #333; width: 100%; box-sizing: border-box; letter-spacing: 1px; border: 1px solid #e6e6e6; border-radius: 4px; padding: 0.8rem 0.8rem;
+  border: 0;
+  padding: 7px 0;
+  border-bottom: 1px solid #ccc;
+  &:focus {
+    outline: none;
+  }
+
+  &:focus ~ ${FocusBorder} {
+    width: 100%;
+    transition: 0.4s;
+  }
 `;
 
 

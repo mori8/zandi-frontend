@@ -5,16 +5,16 @@ import styled from 'styled-components';
 type MemberProfileType = {
   key: number,
   name: string,
-  username: string,
+  github: string,
 }
 
 const MemberProfile = (props: MemberProfileType) => {
   return (
     <StyledMemberProfile key={props.key + "_mp"}>
-      <ProfileImage src={`https://github.com/${props.username}`.concat(".png")} alt="profile_image" />
+      <ProfileImage src={`https://github.com/${props.github}`.concat(".png")} alt="profile_image" />
       <MemberTextInfoWrapper>
         <MemberName>{props.name}</MemberName>
-        <MemberUsername>{props.username}</MemberUsername>
+        <MemberUsername>{props.github}</MemberUsername>
       </MemberTextInfoWrapper>
     </StyledMemberProfile>
   );
