@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
 import DatePicker from 'react-datepicker';
@@ -24,6 +24,8 @@ const CreateEventsModal = (props: PropsType) => {
   const [startDate, setStartDate] = useState<any>(new Date());
   const [endDate, setEndDate] = useState<any>(new Date());
   const [users, setUsers] = useState<Array<{ name: string; github: string; }>>([]);
+  const submitButtonRef = useRef<HTMLButtonElement>(null);
+
 
   const addMember = async () => {
     const memberName = document.getElementById('member_name') as HTMLInputElement;
@@ -59,10 +61,17 @@ const CreateEventsModal = (props: PropsType) => {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+  
+    submitButtonRef.current!.setAttribute('disabled', 'disabled');
+    submitButtonRef.current!.innerText = "생성 중...";
+    submitButtonRef.current!.style.backgroundColor = '#ddd';
+    submitButtonRef.current!.style.cursor = "not-allowed";
+    submitButtonRef.current!.style.color = "#aaa";
+
+
     const { name, content } = eventInfo;
     const started_at = startDate.toISOString().split('T')[0];
     const ended_at = endDate.toISOString().split('T')[0];
-    const stringifiedUsers = JSON.stringify(users);
     // console.log(name, content, started_at, ended_at, stringifiedUsers);
 
     const url = 'http://34.64.124.151:8080/events';
@@ -70,7 +79,7 @@ const CreateEventsModal = (props: PropsType) => {
       headers: {
         "Content-Type": "application/json",
       }
-    }
+    };
 
     const sendParam = {
       "name": name,
@@ -78,18 +87,18 @@ const CreateEventsModal = (props: PropsType) => {
       "started_at": started_at,
       "ended_at": ended_at,
       "users": users
-    }
-    // formData.append('name', name);
-    // formData.append('content', content);
-    // formData.append('started_at', started_at);
-    // formData.append('ended_at', ended_at);
-    // formData.append('users', stringifiedUsers);
+    };
 
     axios.post(url, sendParam, axiosConfig).then(res => {
-      console.log(res.data);
+      // console.log(res.data);
+      submitButtonRef.current!.removeAttribute("disabled");
+      submitButtonRef.current!.innerText = "프로젝트 생성";
+      submitButtonRef.current!.style.backgroundColor = "#4285f4";
+      submitButtonRef.current!.style.cursor = "pointer";
+      submitButtonRef.current!.style.color = "#fff";
       alert('성공적으로 생성되었습니다.');
       window.location.href = '/';
-    })
+    });
   }
 
   return (
@@ -131,7 +140,7 @@ const CreateEventsModal = (props: PropsType) => {
               }
             </MemberProfileWrapper>
           </InputWrapper>
-          <SubmitButton type='submit'>프로젝트 생성</SubmitButton>
+          <SubmitButton type='submit' ref={submitButtonRef}>프로젝트 생성</SubmitButton>
         </form>
       </FormContainer>
       
