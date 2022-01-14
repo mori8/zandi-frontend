@@ -60,7 +60,7 @@ const StyledButton = styled.button`
   padding: 0.8rem 2rem;
   border: none;
   border-radius: 1.6rem;
-  background: rgb(20, 44, 121);
+  background-color: #4285f4;; 
   color: white;
   margin-top: 2rem;
 `;

@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import PropTypes from 'prop-types';
 import { EventCardType } from './main';
 
 let COLORS = ['#4285f4', '#ea4335', '#fbbc05', '#34a853']
@@ -24,18 +23,6 @@ const EventCard = (props: EventCardType) => {
     </StyledEventCard>
   );
 }
-
-EventCard.propTypes = {
-  id: PropTypes.number,
-  title: PropTypes.string,
-  description: PropTypes.string,
-  starts: PropTypes.string,
-  ends: PropTypes.string,
-  participants: PropTypes.number,
-  status: PropTypes.number,
-  color: PropTypes.string,
-}
-
 
 const StyledEventCard = styled.div`
   display: block;

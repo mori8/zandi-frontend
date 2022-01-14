@@ -2,8 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Header from './Header'
 import styled from 'styled-components';
 import EventCard from './EventCard';
-import EventsDetail from '../eventsDetail/EventsDetail';
-import { Link, Routes, Route } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 
