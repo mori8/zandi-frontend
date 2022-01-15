@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import { EventCardType } from './main';
+import { COLORS } from '../constants';
 
-let COLORS = ['#4285f4', '#ea4335', '#fbbc05', '#34a853']
 
 const EventCard = (props: EventCardType) => {
   return (
