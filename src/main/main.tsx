@@ -43,7 +43,7 @@ const Main = (props: any) => {
         setCompletedEvents([])
         setCompletedLoading(true);
         const response = await axios.get('http://34.64.124.151:8080/events/past');
-        setLiveEvents(response.data.data);
+        setCompletedEvents(response.data.data);
         // console.log(response.data.message);
       } catch (error) {
         console.error(error);
