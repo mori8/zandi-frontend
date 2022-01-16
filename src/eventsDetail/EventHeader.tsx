@@ -43,6 +43,7 @@ const EventHeader = (props: EventInfoPropTypes) => {
         <EventDateWrapper>
           <EventDateInfo content={"시작"}>{start_at}</EventDateInfo>
           <EventDateInfo content={"종료"}>{end_at}</EventDateInfo>
+          <EventDDay>{Math.floor((new Date(end_at).getTime() - new Date().getTime()) /(1000 * 60 * 60 * 24))}</EventDDay>
         </EventDateWrapper>
       </LeftWrapper>
       <RightWrapper>
@@ -109,15 +110,22 @@ const EventDescription = styled.p`
   line-height: 1.5;
 `;
 
+const EventDDay = styled.p`
+  font-weight: bold;
+  &::before {
+    content: '프로젝트 종료까지 D-';
+  }
+`;
+
 const EventDateWrapper = styled.div`
   display: flex;
   justify-content: space-between;
-  width: 50%;
+  width: 70%;
+  font-size: 0.9rem;
   margin: 2rem 0 0;
 `;
 
 const EventDateInfo = styled.p<{content: string}>`
-  font-size: 0.9rem;
   &:before {
     content: "${(props: {content: string}) => props.content} | ";
     font-weight: 600;
