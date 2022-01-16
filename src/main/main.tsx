@@ -61,6 +61,7 @@ const Main = (props: any) => {
       <MainWrapper>
         <SmallWrapper>
           <StyledPhrase>현재 가꾸고 있는 잔디</StyledPhrase>
+          <StyledDescription>지금 진행중인 잔디 육성 프로젝트를 둘러보고, 직접 참여해 보세요!</StyledDescription>
           <EventCardWrapper>
             {
               !liveLoading ?
@@ -76,6 +77,7 @@ const Main = (props: any) => {
         </SmallWrapper>
         <SmallWrapper>
           <StyledPhrase>완성된 잔디</StyledPhrase>
+          <StyledDescription>지난 잔디 육성 프로젝트를 살펴볼 수 있어요.</StyledDescription>
           <EventCardWrapper>
             {
               !completedLoading ?
@@ -120,7 +122,14 @@ const StyledPhrase = styled.p`
   font-size: 1.5rem;
   font-weight: bold;
   font-family: 'Pretendard';
-  margin: 3.2rem 0 2rem;
+  margin: 3.2rem 0 0;
+`;
+
+const StyledDescription = styled.p`
+  font-size: 0.95rem;
+  font-family: 'Pretendard';
+  color: #666;
+  margin-bottom: 2rem;
 `;
 
 const Loading = styled.div`
