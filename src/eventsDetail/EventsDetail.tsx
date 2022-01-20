@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import { useParams } from 'react-router-dom';
 import DeleteEvent from './DeleteEvent';
 import EventHeader from './EventHeader';
+import AttendedToday from './AttendedToday';
+import TotalAttendance from './TotalAttendance';
 
 
 export type EventInfoPropTypes = {
@@ -41,15 +43,11 @@ const EventsDetail = (props: any) => {
       <TodayWrapper>
         <h3>오늘의 출석 현황</h3>
         <TodayAttendances>
-          {/*
-            TODO: 오늘의 출석 현황 출력
-          */}
+          <AttendedToday id={id}/>
         </TodayAttendances>
       </TodayWrapper>
       <Zandi>
-        {/*
-          TODO: 전체 출석 현황 출력
-         */}
+        <TotalAttendance id={id}/>
       </Zandi>
       <DeleteEvent id={id} />
     </div>
@@ -63,11 +61,13 @@ const TodayWrapper = styled.div`
 `;
 
 const TodayAttendances = styled.div`
-
+  min-height: 10rem;
 `;
 
 const Zandi = styled.div`
-
+  background-color: #eee;
+  padding: 1.6rem;
+  font-family: 'Pretendard';
 `;
 
 
