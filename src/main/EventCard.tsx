@@ -12,7 +12,7 @@ const EventCard = (props: EventCardType) => {
       <BottomWrapper>
         <StyledDates>{props.started_at} ~ {props.ended_at}</StyledDates>
         <PhraseWrapper>
-          <i className="material-icons md-18">groups</i> <span>ㅤ{props.user_size}</span>
+          <i className="material-icons md-18">groups</i> <span>ㅤ{props.users.length}</span>
         </PhraseWrapper>
       </BottomWrapper>
       <CornerButton color={COLORS[props.id % 4]}>

@@ -12,26 +12,27 @@ export type EventCardType = {
   content: string,
   started_at: string,
   ended_at: string,
-  user_size: number
+  users: {id: number, name: string, github: string}[],
 }
 
 
 const Main = (props: any) => {
   const [liveEvents, setLiveEvents] = useState<EventCardType[]>([]);
   const [completedEvents, setCompletedEvents] = useState<EventCardType[]>([])
+  const [scheduledEvents, setScheduledEvents] = useState<EventCardType[]>([])
   const [liveLoading, setLiveLoading] = useState<boolean>(false);
   const [completedLoading, setCompletedLoading] = useState<boolean>(false);
+  const [scheduledLoading, setScheduledLoading] = useState<boolean>(false);
 
   useEffect(() => {
-    // useEffect에 첫번째 파라미터로 등록하는 함수에는 async를 사용할 수 없으므로
-    // 함수 내부에서 async를 사용하는 새로운 함수를 선언해줘야 함
+  // useEffect에 첫번째 파라미터로 등록하는 함수에는 async를 사용할 수 없으므로
+  // 함수 내부에서 async를 사용하는 새로운 함수를 선언해줘야 함
     const fetchLiveEvents = async () => {
       try {
         setLiveEvents([])
         setLiveLoading(true);
         const response = await axios.get('http://34.64.124.151:8080/events');
         setLiveEvents(response.data.data);
-        // console.log(response.data.message);
       } catch (error) {
         console.error(error);
       }
@@ -44,15 +45,28 @@ const Main = (props: any) => {
         setCompletedLoading(true);
         const response = await axios.get('http://34.64.124.151:8080/events/past');
         setCompletedEvents(response.data.data);
-        // console.log(response.data.message);
       } catch (error) {
         console.error(error);
       }
       setCompletedLoading(false);
     }
 
+    const fetchScheduledEvents = async () => {
+      try {
+        setScheduledEvents([])
+        setScheduledLoading(true);
+        const response = await axios.get('http://34.64.124.151:8080/events/future');
+        setScheduledEvents(response.data.data);
+      } catch (error) {
+        console.error(error);
+      }
+      setScheduledLoading(false);
+    }
+
     fetchLiveEvents();
+    fetchScheduledEvents();
     fetchCompletedEvents();
+
   }, [])
 
   return (
@@ -76,11 +90,27 @@ const Main = (props: any) => {
           </EventCardWrapper>
         </SmallWrapper>
         <SmallWrapper>
-          <StyledPhrase>완성된 잔디</StyledPhrase>
-          <StyledDescription>지난 잔디 육성 프로젝트를 살펴볼 수 있어요.</StyledDescription>
+          <StyledPhrase>예정된 잔디 프로젝트</StyledPhrase>
+          <StyledDescription>곧 시작할 파릇파릇한 잔디 프로젝트를 구경하세요.</StyledDescription>
           <EventCardWrapper>
             {
               !completedLoading ?
+              scheduledEvents.map((event: EventCardType) => {
+                return (
+                  <Link to={`/${event.id}`}>
+                    <EventCard key={event.id} {...event} />
+                  </Link>
+                )
+              }) : <Loading>Loading...</Loading>
+            }
+          </EventCardWrapper>
+        </SmallWrapper>
+        <SmallWrapper>
+          <StyledPhrase>완성된 잔디 프로젝트</StyledPhrase>
+          <StyledDescription>지난 잔디 육성 프로젝트를 살펴볼 수 있어요.</StyledDescription>
+          <EventCardWrapper>
+            {
+              !scheduledLoading ?
               completedEvents.map((event: EventCardType) => {
                 return (
                   <Link to={`/${event.id}`}>
@@ -104,6 +134,7 @@ const MainWrapper = styled.main`
 
 const SmallWrapper = styled.div`
   margin: 2.4rem 0;
+  min-height: 10rem;
 `;
 
 const EventCardWrapper = styled.div`
