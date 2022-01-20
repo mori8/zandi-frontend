@@ -35,7 +35,8 @@ const DeleteEventButton = styled.button`
   background-color: #ea4335;
   border: none;
   color: white;
-  border-radius: 1rem;
+  border-radius: 4px;
+  padding: 0.6rem 1.2rem;
 `;
 
 export default DeleteEvent;

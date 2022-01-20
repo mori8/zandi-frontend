@@ -69,7 +69,7 @@ const StyledEventHeader = styled.div`
   display: flex;
   justify-content: space-between;
   background-color: ${(props: any) => props.color};
-  padding: 4rem;
+  padding: 3.6rem 3.6rem 3.2rem;
   color: #fff;
   box-sizing: border-box;
   font-family: 'Pretendard';
@@ -100,7 +100,7 @@ const MemberProfileImg = styled.img`
 `;
 
 const EventTitle = styled.h1`
-  font-size: 2.4rem;
+  font-size: 2.2rem;
   font-weight: 900;
   margin: 0;
 `;
