@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
+import BeatLoader from 'react-spinners/BeatLoader';
 
 type AttendanceType = {
   username: string,
@@ -63,7 +64,7 @@ const TotalAttendance = (props: {id: string | undefined}) => {
             
         </tbody>
       </AttendanceTable>
-    ) : (<p>Loading...</p>)
+    ) : (<BeatLoader size={10} color="#999"/>)
   );
 }
 

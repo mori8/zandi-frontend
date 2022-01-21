@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import EventCard from './EventCard';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import BeatLoader from 'react-spinners/BeatLoader';
 
 
 export type EventCardType = {
@@ -85,7 +86,11 @@ const Main = (props: any) => {
                     <EventCard key={event.id} {...event} />
                   </Link>
                 )
-              }) : <Loading>Loading...</Loading>
+              }) : (
+                <LoaderWrapper>
+                  <BeatLoader color='#ddd' size={10}/>
+                </LoaderWrapper>
+              )
             }
           </EventCardWrapper>
         </SmallWrapper>
@@ -101,7 +106,11 @@ const Main = (props: any) => {
                     <EventCard key={event.id} {...event} />
                   </Link>
                 )
-              }) : <Loading>Loading...</Loading>
+              }) : (
+                <LoaderWrapper>
+                  <BeatLoader color='#ddd' size={10}/>
+                </LoaderWrapper>
+              )
             }
           </EventCardWrapper>
         </SmallWrapper>
@@ -117,7 +126,11 @@ const Main = (props: any) => {
                     <EventCard key={event.id} {...event} />
                   </Link>
                 )
-              }) : <Loading>Loading...</Loading>
+              }) : (
+              <LoaderWrapper>
+                <BeatLoader color='#ddd' size={10}/>
+              </LoaderWrapper>
+              )
             }
           </EventCardWrapper>
         </SmallWrapper>
@@ -147,6 +160,11 @@ const EventCardWrapper = styled.div`
       color: black;
     }
   }
+`;
+
+const LoaderWrapper = styled.div`
+  width: 68rem;
+  text-align: center;
 `;
 
 const StyledPhrase = styled.p`
