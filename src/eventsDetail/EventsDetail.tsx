@@ -33,41 +33,48 @@ const EventsDetail = (props: any) => {
     }, {
       name: '김도은',
       github: 'whaeundo25'
-    }
-  ],
+    }, {
+      name: '윤이빈',
+      github: 'dbsdlqls'
+    }, {
+      name: '홍재령',
+      github: 'Jar199'
+    }, {
+      name: '장현애',
+      github: 'raae7742'
+    }, {
+      name: '서희',
+      github: '0hee0'
+    }]
   });
 
   return (
-    <div>
+    <Container>
       <EventHeader {...eventInfo} />
-      <TodayWrapper>
-        <h3>오늘의 출석 현황</h3>
-        <TodayAttendances>
-          <AttendedToday id={id}/>
-        </TodayAttendances>
-      </TodayWrapper>
+      <DeleteEvent id={id} />
+      <AttendedToday id={id}/>
       <Zandi>
         <TotalAttendance id={id}/>
       </Zandi>
-      <DeleteEvent id={id} />
-    </div>
+    </Container>
   );
 }
 
-const TodayWrapper = styled.div`
-  text-align: center;
-  box-sizing: border-box;
-  padding: 2rem;
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - 103.938px);
 `;
 
-const TodayAttendances = styled.div`
-  min-height: 10rem;
-`;
 
 const Zandi = styled.div`
+  display: flex;
   background-color: #eee;
   padding: 1.6rem;
   font-family: 'Pretendard';
+  justify-content: center;
+  align-items: center;
+  flex: 1;
 `;
 
 
