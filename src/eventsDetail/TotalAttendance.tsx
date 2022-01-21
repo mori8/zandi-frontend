@@ -9,289 +9,17 @@ type AttendanceType = {
 
 const TotalAttendance = (props: {id: string | undefined}) => {
   const { id } = props;
-  const [members, setMembers] = useState<string[]>(["혀내", "수연"]);
-  const [dates, setDates] = useState<string[]>(["2022-01-10", "2022-01-11", "2022-01-12", "2022-01-13", "2022-01-14", "2022-01-15", "2022-01-16", "2022-01-17", "2022-01-18", "2022-01-19"]);
+  const [members, setMembers] = useState<string[]>();
+  const [dates, setDates] = useState<string[]>();
   const [checks, setChecks] = useState<{[username: string]: {[date: string]: boolean}}>({});
   
   useEffect(() => {
     const fetchTodayAttendances = async () => {
       try {
-        // const response = await axios.get(`http://34.64.124.151:8080/checks?id=${id}`);
-        // console.log(response.data.data);
-        
-        // mockup data
-        const attendances = ([
-          {
-            "username": "혀내",
-            "attendance": [
-                {
-                    "date": "2022-01-10",
-                    "_checked": true
-                },
-                {
-                    "date": "2022-01-11",
-                    "_checked": true
-                },
-                {
-                    "date": "2022-01-12",
-                    "_checked": true
-                },
-                {
-                    "date": "2022-01-13",
-                    "_checked": true
-                },
-                {
-                    "date": "2022-01-14",
-                    "_checked": false
-                },
-                {
-                    "date": "2022-01-15",
-                    "_checked": true
-                },
-                {
-                    "date": "2022-01-16",
-                    "_checked": true
-                },
-                {
-                    "date": "2022-01-17",
-                    "_checked": true
-                },
-                {
-                    "date": "2022-01-18",
-                    "_checked": true
-                },
-                {
-                    "date": "2022-01-19",
-                    "_checked": true
-                }
-            ]
-        },
-        {
-            "username": "수연",
-            "attendance": [
-                {
-                    "date": "2022-01-10",
-                    "_checked": false
-                },
-                {
-                    "date": "2022-01-11",
-                    "_checked": true
-                },
-                {
-                    "date": "2022-01-12",
-                    "_checked": true
-                },
-                {
-                    "date": "2022-01-13",
-                    "_checked": true
-                },
-                {
-                    "date": "2022-01-14",
-                    "_checked": true
-                },
-                {
-                    "date": "2022-01-15",
-                    "_checked": true
-                },
-                {
-                    "date": "2022-01-16",
-                    "_checked": false
-                },
-                {
-                    "date": "2022-01-17",
-                    "_checked": true
-                },
-                {
-                    "date": "2022-01-18",
-                    "_checked": true
-                },
-                {
-                    "date": "2022-01-19",
-                    "_checked": true
-                }
-            ]
-        },
-        {
-            "username": "어진",
-            "attendance": [
-                {
-                    "date": "2022-01-10",
-                    "_checked": false
-                },
-                {
-                    "date": "2022-01-11",
-                    "_checked": true
-                },
-                {
-                    "date": "2022-01-12",
-                    "_checked": false
-                },
-                {
-                    "date": "2022-01-13",
-                    "_checked": true
-                },
-                {
-                    "date": "2022-01-14",
-                    "_checked": true
-                },
-                {
-                    "date": "2022-01-15",
-                    "_checked": true
-                },
-                {
-                    "date": "2022-01-16",
-                    "_checked": true
-                },
-                {
-                    "date": "2022-01-17",
-                    "_checked": false
-                },
-                {
-                    "date": "2022-01-18",
-                    "_checked": true
-                },
-                {
-                    "date": "2022-01-19",
-                    "_checked": true
-                }
-            ]
-        },
-        {
-            "username": "사랑",
-            "attendance": [
-                {
-                    "date": "2022-01-10",
-                    "_checked": true
-                },
-                {
-                    "date": "2022-01-11",
-                    "_checked": true
-                },
-                {
-                    "date": "2022-01-12",
-                    "_checked": false
-                },
-                {
-                    "date": "2022-01-13",
-                    "_checked": false
-                },
-                {
-                    "date": "2022-01-14",
-                    "_checked": true
-                },
-                {
-                    "date": "2022-01-15",
-                    "_checked": true
-                },
-                {
-                    "date": "2022-01-16",
-                    "_checked": true
-                },
-                {
-                    "date": "2022-01-17",
-                    "_checked": true
-                },
-                {
-                    "date": "2022-01-18",
-                    "_checked": false
-                },
-                {
-                    "date": "2022-01-19",
-                    "_checked": true
-                }
-            ]
-        },
-        {
-            "username": "이빈",
-            "attendance": [
-                {
-                    "date": "2022-01-10",
-                    "_checked": true
-                },
-                {
-                    "date": "2022-01-11",
-                    "_checked": false
-                },
-                {
-                    "date": "2022-01-12",
-                    "_checked": true
-                },
-                {
-                    "date": "2022-01-13",
-                    "_checked": true
-                },
-                {
-                    "date": "2022-01-14",
-                    "_checked": true
-                },
-                {
-                    "date": "2022-01-15",
-                    "_checked": true
-                },
-                {
-                    "date": "2022-01-16",
-                    "_checked": true
-                },
-                {
-                    "date": "2022-01-17",
-                    "_checked": true
-                },
-                {
-                    "date": "2022-01-18",
-                    "_checked": true
-                },
-                {
-                    "date": "2022-01-19",
-                    "_checked": true
-                }
-            ]
-        },
-        {
-            "username": "춘식",
-            "attendance": [
-                {
-                    "date": "2022-01-10",
-                    "_checked": true
-                },
-                {
-                    "date": "2022-01-11",
-                    "_checked": true
-                },
-                {
-                    "date": "2022-01-12",
-                    "_checked": false
-                },
-                {
-                    "date": "2022-01-13",
-                    "_checked": true
-                },
-                {
-                    "date": "2022-01-14",
-                    "_checked": true
-                },
-                {
-                    "date": "2022-01-15",
-                    "_checked": true
-                },
-                {
-                    "date": "2022-01-16",
-                    "_checked": false
-                },
-                {
-                    "date": "2022-01-17",
-                    "_checked": false
-                },
-                {
-                    "date": "2022-01-18",
-                    "_checked": true
-                },
-                {
-                    "date": "2022-01-19",
-                    "_checked": true
-                }
-            ]
-        }
-        ])
+        const response = await axios.get(`http://34.64.124.151:8080/checks?event_id=${id}`);
+        console.log(response.data.data);
+        const attendances = response.data.data;
+
         setMembers(attendances!.map((checks: AttendanceType) => checks.username));
         setDates(attendances![0].attendance.map((checkInfo: {date: string, _checked: boolean}) => checkInfo.date));
         setChecks(attendances!.reduce((acc: {[username: string]: {[date: string]: boolean}}, cur: AttendanceType) => {
@@ -335,7 +63,7 @@ const TotalAttendance = (props: {id: string | undefined}) => {
             
         </tbody>
       </AttendanceTable>
-    ) : (<p>loading...</p>)
+    ) : (<p>Loading...</p>)
   );
 }
 
@@ -356,6 +84,5 @@ const CheckCell = styled.td`
   border-radius: 12px;
   height: 26px;
 `;
-
 
 export default TotalAttendance;
