@@ -99,7 +99,7 @@ const Main = (props: any) => {
           <StyledDescription>곧 시작할 파릇파릇한 잔디 프로젝트를 구경하세요.</StyledDescription>
           <EventCardWrapper>
             {
-              !completedLoading ?
+              !scheduledLoading ?
               scheduledEvents.map((event: EventCardType) => {
                 return (
                   <Link to={`/${event.id}`}>
@@ -119,7 +119,7 @@ const Main = (props: any) => {
           <StyledDescription>지난 잔디 육성 프로젝트를 살펴볼 수 있어요.</StyledDescription>
           <EventCardWrapper>
             {
-              !scheduledLoading ?
+              !completedLoading ?
               completedEvents.map((event: EventCardType) => {
                 return (
                   <Link to={`/${event.id}`}>
