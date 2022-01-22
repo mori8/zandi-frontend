@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components'
 import CreateEventsModal from '../createEvents/CreateEventsModal';
+import { Link } from 'react-router-dom';
 
 
 // TODO: 회원가입 구현 이후 로그인 정보 표시
@@ -17,11 +18,13 @@ const Header = () => {
 
   return (
     <StyledHeader>
-      <StyledNav>로그인</StyledNav>
+        <StyledLoginHref>
+          <Link to="/login">로그인</Link>
+        </StyledLoginHref>
       <SmallWrapper>
         <img src="gdsc_sookmyung_logo.png" alt="" width="220px"/> <br/>
         정원사 눈송이와 함께 <br/>
-        1일 1커밋 도전하기 <br/>
+        매일 성장하는 나를 기록해요 <br/>
         <StyledButton onClick={openCreateModal}>이벤트 등록하기 &#10141;</StyledButton>
       </SmallWrapper>
       {isModalOpened && <CreateEventsModal close={closeCreateModal}/>}
@@ -33,24 +36,46 @@ const StyledHeader = styled.header`
   width: 100%;
   box-sizing: border-box;
   font-family: 'Pretendard';
-  background-color: #ddd;
+  background-color: #fff;
   color: black;
+  text-decoration: none;
+  position: relative;
+
+  &:before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 15%;
+    left: -5%;
+    z-index: 1;
+    background-image: url('gardender_noonsong.jpg');
+    background-size: 35%;
+    background-transformation: scaleX(-1);
+    background-repeat: no-repeat;
+    transform: scaleX(-1);
+  }
 `;
 
 const SmallWrapper = styled.div`
-  padding: 2.4rem 4rem 4rem;
+  padding: 1.6rem 3.6rem 3.2rem;
   box-sizing: border-box;
-  font-size: 2.6rem;
+  font-size: 2.2rem;
   font-weight: 700;
 `;
 
-const StyledNav = styled.div`
+const StyledLoginHref = styled.div`
   width: 100%;
   box-sizing: border-box;
   height: max-content;
   text-align: right;
   padding: 1.2rem 1.6rem;
   font-size: 0.9rem;
+  & > a {
+    color: #333;
+    text-decoration: none;
+  }
+
 `;
 
 const StyledButton = styled.button`
