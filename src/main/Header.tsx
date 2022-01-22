@@ -49,7 +49,7 @@ const StyledHeader = styled.header`
     top: 15%;
     left: -5%;
     z-index: 1;
-    background-image: url('gardender_noonsong.jpg');
+    background-image: url('gardener_noonsong.jpg');
     background-size: 35%;
     background-transformation: scaleX(-1);
     background-repeat: no-repeat;
