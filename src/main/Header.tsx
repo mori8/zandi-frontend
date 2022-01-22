@@ -46,11 +46,11 @@ const StyledHeader = styled.header`
     position: absolute;
     width: 100%;
     height: 100%;
-    top: 15%;
-    left: -5%;
+    top: 22%;
+    left: -7%;
     z-index: 1;
     background-image: url('gardener_noonsong.jpg');
-    background-size: 35%;
+    background-size: 30%;
     background-transformation: scaleX(-1);
     background-repeat: no-repeat;
     transform: scaleX(-1);
