@@ -13,6 +13,14 @@ const TotalAttendance = (props: {id: string | undefined}) => {
   const [members, setMembers] = useState<string[]>();
   const [dates, setDates] = useState<string[]>();
   const [checks, setChecks] = useState<{[username: string]: {[date: string]: boolean}}>({});
+
+  const isToday = (date: string) => {
+    const today = new Date();
+    const target = new Date(date);
+    return today.getFullYear() === target.getFullYear() &&
+      today.getMonth() === target.getMonth() &&
+      today.getDate() === target.getDate();
+  }
   
   useEffect(() => {
     const fetchTodayAttendances = async () => {
@@ -55,7 +63,7 @@ const TotalAttendance = (props: {id: string | undefined}) => {
                 { members.map((member: string) => {
                   const isChecked = checks[member];
                   return (
-                    isChecked && <CheckCell key={member} color={isChecked[date] ? "#94df73" : "#EF8181"}/>
+                    isChecked && <CheckCell key={member} color={isChecked[date] ? "#94df73" : isToday(date) ?  "#999" : "#EF8181"}/>
                   )
                 }
               )}
@@ -77,6 +85,8 @@ const AttendanceTable = styled.table`
 const DateCell = styled.td`
   font-weight: 600;
   width: 48px;
+  text-align: center;
+  line-height: 1;
 `;
 
 const CheckCell = styled.td`
