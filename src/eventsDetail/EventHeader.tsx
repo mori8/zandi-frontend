@@ -10,7 +10,7 @@ const EventHeader = (props: EventInfoPropTypes) => {
   const showMemberInfo = (e: React.MouseEvent<HTMLImageElement>) => {
     e.preventDefault();
     const MemberDetailBox = document.createElement('div');
-    MemberDetailBox.innerHTML = `<p style="margin: 0 0 0.1rem; padding: 0;"}>${e.currentTarget.dataset.membername}</p><p style="margin: 0; padding: 0; font-weight: 400;">${e.currentTarget.dataset.membergithub}</p>`;
+    MemberDetailBox.innerHTML = `<span style="margin: 0 0 0.1rem; padding: 0;"}>${e.currentTarget.dataset.membername}</span><span style="margin: 0; padding: 0; font-weight: 400;">(${e.currentTarget.dataset.membergithub})</span>`;
     MemberDetailBox.setAttribute('id', 'member-detail-box');
     MemberDetailBox.style.position = 'absolute';
     MemberDetailBox.style.top = `${e.currentTarget.offsetTop + e.currentTarget.offsetHeight + 10}px`;
